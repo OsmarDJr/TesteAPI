@@ -30,7 +30,7 @@ jobs:
         run: cat resultado.json
 
       - name: Salvar resultado
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: resultado-cep
           path: resultado.json
