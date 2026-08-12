@@ -1,0 +1,37 @@
+name: Consulta de CEP
+
+on:
+  workflow_dispatch:
+    inputs:
+      cep:
+        description: "Digite o CEP com 8 números"
+        required: true
+        type: string
+
+jobs:
+
+  consultar:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Baixar arquivos do repositório
+        uses: actions/checkout@v6
+
+      - name: Configurar Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Executar consulta
+        run: python consulta_cep.py "${{ inputs.cep }}"
+
+      - name: Mostrar arquivo gerado
+        run: cat resultado.json
+
+      - name: Salvar resultado
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultado-cep
+          path: resultado.json
+          retention-days: 7
